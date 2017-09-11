@@ -49,12 +49,12 @@ class PlayerPage extends React.Component {
 
         this.$dom.bind($.jPlayer.event.timeupdate, (data) => {
             this.setState({
-            progress: Math.round(data.jPlayer.status.currentPercentAbsolute)
+                progress: Math.round(data.jPlayer.status.currentPercentAbsolute)
             });
     
             this.setState({
-            totalTime: data.jPlayer.status.duration,
-            currentTime: data.jPlayer.status.currentTime,
+                totalTime: data.jPlayer.status.duration,
+                currentTime: data.jPlayer.status.currentTime,
             })
             // console.log(data)
             // console.log(this.state)
