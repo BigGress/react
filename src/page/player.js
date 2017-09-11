@@ -17,6 +17,7 @@ class PlayerPage extends React.Component {
             totalTime: 0,
             currentTime: 0,
             currentMusic: {},
+            paused: "playing"
         }
 
         this.timeFilter = this.timeFilter.bind(this);
@@ -56,6 +57,12 @@ class PlayerPage extends React.Component {
                 totalTime: data.jPlayer.status.duration,
                 currentTime: data.jPlayer.status.currentTime,
             })
+
+            // console.log(data)
+
+            // this.setState({
+            //     paused: data.jPlayer.status.paused
+            // })
             // console.log(data)
             // console.log(this.state)
         })
@@ -80,7 +87,19 @@ class PlayerPage extends React.Component {
   }
   
   toggleMusic() {
-      this.$dom.jPlayer("paused")
+    if (this.state.paused === "paused") {
+        this.$dom.jPlayer("play");
+
+        this.setState({
+            paused: "playing",
+        })
+    } else {
+        this.$dom.jPlayer("pause");
+
+        this.setState({
+            paused: "paused",
+        })
+    }
   }
 
   timeFilter(num) {
@@ -103,7 +122,9 @@ class PlayerPage extends React.Component {
                         <span className="flex"></span>
                         <div className="control flex">
                             <div className="pre-music"> 上 </div>
-                            <i className="play-or-stop material-icons">play_arrow</i>
+                            <i className="play-or-stop material-icons" onClick={this.toggleMusic.bind(this)}>
+                                {this.state.paused === "paused" ? 'play_arrow' : 'pause'}
+                            </i>
                             <div className="next-music"> 下 </div>
                         </div>
                     </div>
