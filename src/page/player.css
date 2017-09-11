@@ -21,6 +21,16 @@
     width: 100%;
 }
 
+.player-page .voice {
+    text-align: right;
+    /* padding-right: 4px; */
+    align-items: center;
+}
+
 .player-page .detail-box {
 
+}
+
+.player-page .material-icons {
+    cursor: pointer;
 }

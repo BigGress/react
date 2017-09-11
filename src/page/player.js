@@ -6,22 +6,31 @@ import musics from "../config";
 
 import Progress from "../components/progress";
 
+import Music from "../service/music";
+
 class PlayerPage extends React.Component {
     $dom;
+
+    service = new Music();
 
     constructor(props) {
         super(props);
 
+        this.timeFilter = this.timeFilter.bind(this);
+        this.returnUrl = this.returnUrl.bind(this);
+
+        this.init();
+    }
+
+    init() {
         this.state = {
             progress: "-",
             totalTime: 0,
             currentTime: 0,
             currentMusic: {},
-            paused: "playing"
+            paused: "playing",
+            voice: this.service.getVoice(),
         }
-
-        this.timeFilter = this.timeFilter.bind(this);
-        this.returnUrl = this.returnUrl.bind(this);
     }
 
     returnUrl() {
@@ -31,16 +40,19 @@ class PlayerPage extends React.Component {
             })
         })
 
-        return this.state.currentMusic.url;
+        return this.state.currentMusic;
     }
 
     componentDidMount() {
         this.$dom = $("#player");
         let that = this;
+
+        this.returnUrl();
+
         this.$dom.jPlayer({
             ready() {
               $(this).jPlayer("setMedia", {
-                mp3: that.returnUrl(),
+                mp3: that.state.currentMusic.url,
               })
               .jPlayer("play")
             },
@@ -57,15 +69,12 @@ class PlayerPage extends React.Component {
                 totalTime: data.jPlayer.status.duration,
                 currentTime: data.jPlayer.status.currentTime,
             })
-
-            // console.log(data)
-
-            // this.setState({
-            //     paused: data.jPlayer.status.paused
-            // })
-            // console.log(data)
-            // console.log(this.state)
         })
+
+        // 声音
+        if (this.state.voice) {
+            this.changeVoice.call(this, this.state.voice);
+        }
     }
 
 
@@ -106,6 +115,34 @@ class PlayerPage extends React.Component {
     return `${this.compleTime(Math.floor(num / 60) || 0)}:${this.compleTime(Math.round(num % 60) || 0)}`;
   }
 
+  pretMusic() {
+    let index = musics.findIndex(e => e.id == this.props.match.params.id);
+    if (index !== 0) {
+        window.location.href = `/player/${--index}`;
+    } else {
+        window.location.href = `/player/${musics.length - 1}`;
+    }
+  }
+
+  nextMusic() {
+    let index = musics.findIndex(e => e.id == this.props.match.params.id);
+    if (index < musics.length - 1) {
+        window.location.href = `/player/${++index}`;
+    } else {
+        window.location.href = `/player/0`;
+    }
+  }
+
+  changeVoice(data) {
+      this.setState({
+          voice: Math.round(data * 100),
+      });
+
+      this.service.setVoice(data),
+
+      this.$dom.jPlayer("volume", data);
+  }
+
     render() {
         return (
             <div className="player-page">
@@ -120,12 +157,18 @@ class PlayerPage extends React.Component {
                             </div>
                         </div>
                         <span className="flex"></span>
-                        <div className="control flex">
-                            <div className="pre-music"> 上 </div>
-                            <i className="play-or-stop material-icons" onClick={this.toggleMusic.bind(this)}>
-                                {this.state.paused === "paused" ? 'play_arrow' : 'pause'}
-                            </i>
-                            <div className="next-music"> 下 </div>
+                        <div className="control">
+                            <div className="flex">
+                                <i className="material-icons" onClick={this.pretMusic.bind(this)}>navigate_before</i>
+                                <i className="play-or-stop material-icons" onClick={this.toggleMusic.bind(this)}>
+                                    {this.state.paused === "paused" ? 'play_arrow' : 'pause'}
+                                </i>
+                                <i className="material-icons" onClick={this.nextMusic.bind(this)}>navigate_next</i>
+                            </div>
+                            <div className="voice flex">
+                                <i className="material-icons">volume_up</i>
+                                <Progress position={this.state.voice} changePosition={this.changeVoice.bind(this)}/>
+                            </div>
                         </div>
                     </div>
                     <div className="time-line">
