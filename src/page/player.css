@@ -1,0 +1,26 @@
+.player-page {
+    margin-top: 8px;
+}
+
+.player-page .detail-box .name {
+    margin: 4px 0;
+    text-align: left;
+
+    color: #222;
+
+    white-space: nowrap;
+}
+
+.player-page .flex {
+    display: flex;
+}
+
+.player-page span.flex {
+    display: flex;
+    flex: 1 1 100%;
+    width: 100%;
+}
+
+.player-page .detail-box {
+
+}
