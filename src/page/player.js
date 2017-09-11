@@ -45,20 +45,7 @@ class PlayerPage extends React.Component {
 
     componentDidMount() {
         this.$dom = $("#player");
-        let that = this;
-
         this.returnUrl();
-
-        this.$dom.jPlayer({
-            ready() {
-              $(this).jPlayer("setMedia", {
-                mp3: that.state.currentMusic.url,
-              })
-              .jPlayer("play")
-            },
-            supplied: "mp3",
-            wmode: "window"
-          });
 
         this.$dom.bind($.jPlayer.event.timeupdate, (data) => {
             this.setState({

@@ -9,8 +9,13 @@ import musics from "./config";
 
 import Header from "./components/header";
 import PlayerPage from "./page/player";
+import ListPage from "./page/list";
+
+import Music from "./service/music";
 
 class App extends Component {
+
+  service = new Music();
 
   constructor(props) {
     super(props);
@@ -18,6 +23,40 @@ class App extends Component {
       musics: musics,
       currentMusic: musics[0]
     };
+  }
+
+  selectMusic(index) {
+    this.setState({
+      currentMusic: musics[index],
+    })
+
+    this.$dom
+        .jPlayer("setMedia", {
+          mp3: this.state.currentMusic.url,
+        })
+        .jPlayer("play")
+  }
+
+  componentDidMount() {
+      this.$dom = $("#player");
+      let that = this;
+
+      this.$dom.jPlayer({
+          ready() {
+            $(this).jPlayer("setMedia", {
+              mp3: that.state.currentMusic.url,
+            })
+            .jPlayer("play")
+          },
+          supplied: "mp3",
+          wmode: "window"
+        });
+
+      this.changeVoice();
+  }
+
+  changeVoice() {
+    this.$dom.jPlayer("volume", this.service.getVoice());
   }
 
   render() {
@@ -33,7 +72,8 @@ class App extends Component {
           {/* <p className="App-intro">
             To get started, edit <code>src/App.js</code> and save to reload.
           </p> */}
-          <Route path="/player/:id" component={PlayerPage}></Route>
+          <Route path="/list" render={() => <ListPage selectMusic={this.selectMusic.bind(this)} />} />
+          <Route path="/player/:id" component={PlayerPage} />
         </div>
       </Router>
     );
