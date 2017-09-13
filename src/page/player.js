@@ -51,6 +51,10 @@ class PlayerPage extends React.Component {
             this.setState({
                 progress: Math.round(data.jPlayer.status.currentPercentAbsolute)
             });
+
+            this.setState({
+                voice: Math.round(data.jPlayer.options.volume * 100),
+            });
     
             this.setState({
                 totalTime: data.jPlayer.status.duration,
@@ -121,10 +125,6 @@ class PlayerPage extends React.Component {
   }
 
   changeVoice(data) {
-      this.setState({
-          voice: Math.round(data * 100),
-      });
-
       this.service.setVoice(data),
 
       this.$dom.jPlayer("volume", data);
