@@ -8,7 +8,19 @@ export const commonStyle = StyleSheet.create({
     },
     flexRow: {
         flexDirection: "row",
-    }
+    },
+    flexBewteen: {
+        justifyContent: "space-between",
+    },
+    fullBox: {
+        width: "100%",
+    },
+    padding: {
+        padding: 8,
+    },
+    border: {
+        elevation: 3,
+    },
 });
 
 export const userStyle = StyleSheet.create({
@@ -120,7 +132,6 @@ export const styles = StyleSheet.create({
     },
     warehouseBox: {
         flex: 1,
-        justifyContent: "space-between",
         alignItems: "center",
     },
     iconSize: {
@@ -164,3 +175,93 @@ export const stylesSideMenu = StyleSheet.create({
     },
   });
 
+export const itemBox = StyleSheet.create({
+    viewBox: {
+        marginTop: 12,
+        borderRadius: 2,
+    },
+    viewBoxContent: {
+        backgroundColor: "#fff",
+        padding: 8,
+        margin: 3,
+    },
+    titleBox: {
+        paddingBottom: 8,
+    },
+    titleText: {
+        fontSize: 24,
+    },
+    contentText: {
+        fontSize: 15,
+    },
+    baseInfoBox: {
+        borderBottomWidth: 1,
+        borderBottomColor: borderColor,
+        marginBottom: 4,
+        paddingBottom: 8,
+    },
+    statusBox: {
+        alignItems: "center",
+    },
+    bottomView: {
+        marginLeft: 3,
+    },
+    childViewBox: {
+        width: "100%",
+        flex: 1,
+        height: 26,
+        alignItems: "center",
+        paddingRight: 8,
+        // justifyContent: "center",
+    },
+    childIndexBox: {
+        position: "relative",
+        alignItems: "center",
+        justifyContent: "center",
+        marginLeft: 8,
+    },
+    childIndexBoxBackground: {
+        position: "absolute",
+        top: -3,
+        width: 18, 
+        height: 18,
+        backgroundColor: "red",
+        borderRadius: 100,
+    },
+    childIndexBoxLine: {
+        width: 1,
+        height: 26,
+        // backgroundColor: borderColor,
+        backgroundColor: "rgba(180, 180, 180, 1)",
+        position: "absolute",
+        top: -6,
+        left: "50%",
+        marginLeft: -.5,
+    },
+    childContentText: {
+        lineHeight: 11,
+        color: "#fff",
+    }
+})
+
+export const modal = StyleSheet.create({
+    header: {
+        width: "100%",
+        alignItems: "center",
+    },
+    headerTitle: {
+        fontSize: 20,
+    },
+    headerBtn: {
+        backgroundColor: "transparent",
+        color: "#ff0",
+        elevation: 0,
+    },
+    content: {
+        
+    }
+})
+
+export const itemDetail = StyleSheet.create({
+
+})

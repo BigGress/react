@@ -22,7 +22,7 @@ const WarehouseItem = ({selectWarehouse}) => {
   return (
       <TouchableHighlight onPress={selectWarehouse} style={Style.warehouseSelectItem}
                           underlayColor={"#bfcdda"}>
-          <View style={[Style.warehouseBox, commonStyle.flexRow]}>
+          <View style={[commonStyle.flexRow, commonStyle.flexBewteen, Style.warehouseBox, ]}>
               <Text style={Style.warehouseSelectText}>仓库: ABC仓库</Text>
               <View style={Style.icon}>
                   <Image style={[Style.iconSize, Style.warehouseIcon]} source={require("./src/assets/images/warehouse.png")} />

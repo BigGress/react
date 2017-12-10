@@ -11,7 +11,7 @@ import {
     Image,
 } from "react-native";
 import SideMenu from "react-native-side-menu";
-import { styles as Style } from "./style";
+import { styles as Style, commonStyle } from "./style";
 import { Base64 } from "./util";
 
 import { AUTH_URL, CLIENT_ID, URL } from "./config";
@@ -19,19 +19,22 @@ import { AUTH_URL, CLIENT_ID, URL } from "./config";
 import appState from "./store/index";
 
 import PageLoading from "./components/loading";
+import ItemDetail from "./components/ItemDetail";
 import ItemBox from "./components/ItemBox";
+import EwModal from "./components/Modal";
 
 const LocalUri = `http://192.168.1.215:3000`;
 
 @observer
 export class Main extends React.Component {
-    @observable showWebView = false; 
+    @observable showWebView = false;
+    @observable showDetail = false;
 
     @observable checking = false;
 
     componentWillMount() {
-        // appState.user.getUser(); 
-        this.checkToken();
+        // 检查权限
+        // this.checkToken();
     }
 
     @action
@@ -39,6 +42,7 @@ export class Main extends React.Component {
         this.checking = true;
         return appState.user.checkToken().then(({status}) => {
             if (status === 401) { 
+                console.log(`我执行了吗？`)
                 this.showWebView = true;
             }
 
@@ -108,29 +112,48 @@ export class Main extends React.Component {
         if (this.checking) {
             return (<PageLoading />)
         } else {
-            return (<View>
-                        <Button title="click" onPress={this.deleteToken.bind(this)} />
-                        <Button title="test" onPress={this.webViewError.bind(this, "点击了")} />
-                        <PageLoading />
+            return (<View style={[commonStyle.fullBox, commonStyle.padding]}>
+                        {/* <Button title="click" onPress={this.deleteToken.bind(this)} />
+                        <Button title="test" onPress={this.webViewError.bind(this, "点击了")} /> */}
+                        {/* <PageLoading /> */}
                         <ItemBox supplierName={"测试"} number={"CGXXXX"}
                                  order={"SHXXXX"} quantity={500}
-                                 purchaser={"采购"} remark={"备注！"}/>
+                                 purchaser={"采购"} remark={"备注！"}
+                                 doAction={this.openDetail.bind(this)}/>
+                        <ItemBox supplierName={"测试"} number={"CGXXXX"}
+                                order={"SHXXXX"} quantity={500}
+                                purchaser={"采购"} remark={"备注！"}
+                                doAction={this.openDetail.bind(this)}/>
                         <Modal visible={this.showWebView}
                             style={Style.clearPaddingAndMargin}
-                            onRequestClose={this.ModalClose.bind(this)}>
+                            onRequestClose={this.ModalClose.bind(this)}
+                            animationType="slide">
                             <WebView source={this.makeViewObj()}
                                     style={Style.fullModal}
                                     onNavigationStateChange={this.getAuth.bind(this)}/>
                         </Modal>
+                        <EwModal visible={this.showDetail}
+                                 animationType="slide"
+                                 title={"策四"}>
+                            <ItemDetail onBack={this.closeDetailModal.bind(this)}/>
+                        </EwModal>
                     </View>);
         }
+    }
+
+    openDetail(...args) {
+        console.log(args)
+        this.showDetail = true;
+    }
+
+    closeDetailModal() {
+        this.showDetail = false;
     }
 
     render() {
         return (
             <Provider {...appState}>
-                {this._renderChild()} 
-
+                {this._renderChild()}
             </Provider>
         );
     }
