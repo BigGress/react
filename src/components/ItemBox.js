@@ -75,7 +75,7 @@ export default class ItemBox extends React.Component {
                                 <Text style={style.titleText}>{this.props.number}</Text>
                             </View>
                             <FlatList data={infos}
-                                    renderItem={({item}, i) => <Text style={style.contentText}>{item}</Text>}
+                                    renderItem={({item}) => <Text style={style.contentText}>{item}</Text>}
                                     keyExtractor={(item, index) => index}/>
                         </View>
                         <View style={[commonStyle.flexRow, commonStyle.flexBewteen, style.statusBox]}>

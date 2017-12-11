@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 
 export const borderColor = "rgba(228, 222, 222, 0.4)";
+export const defaultColor = "rgba(43, 150, 240, 1)";
 
 export const commonStyle = StyleSheet.create({
     circle: {
@@ -177,7 +178,7 @@ export const stylesSideMenu = StyleSheet.create({
 
 export const itemBox = StyleSheet.create({
     viewBox: {
-        marginTop: 12,
+        marginTop: 8,
         borderRadius: 2,
     },
     viewBoxContent: {
@@ -247,15 +248,19 @@ export const itemBox = StyleSheet.create({
 export const modal = StyleSheet.create({
     header: {
         width: "100%",
+        height: 48,
         alignItems: "center",
+        paddingLeft: 8,
+        paddingRight: 8,
+        marginBottom: 3,
+        borderBottomWidth: 1,
+        borderBottomColor: borderColor,
     },
     headerTitle: {
         fontSize: 20,
     },
-    headerBtn: {
-        backgroundColor: "transparent",
-        color: "#ff0",
-        elevation: 0,
+    headerBtnText: {
+        color: defaultColor
     },
     content: {
         

@@ -134,8 +134,9 @@ export class Main extends React.Component {
                         </Modal>
                         <EwModal visible={this.showDetail}
                                  animationType="slide"
-                                 title={"策四"}>
-                            <ItemDetail onBack={this.closeDetailModal.bind(this)}/>
+                                 title={"策四"}
+                                 onBack={this.closeDetailModal.bind(this)}>
+                            <ItemDetail/>
                         </EwModal>
                     </View>);
         }
@@ -147,6 +148,7 @@ export class Main extends React.Component {
     }
 
     closeDetailModal() {
+        console.log(`haha`)
         this.showDetail = false;
     }
 

@@ -8,7 +8,7 @@ import {
 import { action, observable } from "mobx";
 import { observer } from "mobx-react";
 
-import {} from "../style";
+// import {} from "../style";
 
 
 @observer
@@ -18,10 +18,22 @@ export default class ItemDetail extends React.Component {
     }
     
     render() {
+        let infos = [
+            `T{}`,
+            `test2`
+        ];
+
         return (
             <View>
-                <Button onPress={this.onBack.bind(this)} title="back" />
-                <Text>test</Text>
+                <View>
+                    <View>
+                        <Text>Name</Text>
+                        <Text>CGXXXX</Text>
+                    </View>
+                    <FlatList data={infos}
+                              renderItem={({item}) => <Text>{item}</Text>}
+                              keyExtractor={(item, index) => index}/>
+                </View>
             </View>
         )
     }
