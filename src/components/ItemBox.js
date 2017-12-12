@@ -53,15 +53,7 @@ export default class ItemBox extends React.Component {
             `${this.props.order}(到货${this.props.quantity})`,
             `采购员: ${this.props.purchaser}`,
             `备注: ${this.props.remark}`
-        ]
-
-        let data = [
-            {
-                index:0,
-                sku: "xxx123",
-                quantity: 12
-            }
-        ]
+        ];
 
         return (
             <TouchableHighlight style={[style.viewBox]}
@@ -79,15 +71,15 @@ export default class ItemBox extends React.Component {
                                     keyExtractor={(item, index) => index}/>
                         </View>
                         <View style={[commonStyle.flexRow, commonStyle.flexBewteen, style.statusBox]}>
-                            <Text>状态: {this.props.orderStatus}-{this.props.arrivalStatus}</Text>
+                            <Text>状态: {this.props.arrivalStatus}-{this.props.checkStatus}</Text>
                             <Button title={"执行"} onPress={this.clickAction.bind(this)}/>
                         </View>
                     </View>
                     <View style={[
                             style.bottomView, 
-                            this.showBox ? {height: data.length * 26} : {height: 0}
+                            this.showBox ? {height: this.props.orderChildren.length * 26} : {height: 0}
                           ]}>
-                        <FlatList data={data}
+                        <FlatList data={this.props.orderChildren}
                                   renderItem={({item}) => <ItemBoxChild data={item}/>}
                                   keyExtractor={(item, index) => index}/>
                     </View>

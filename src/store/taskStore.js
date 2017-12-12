@@ -4,6 +4,7 @@ import { URL } from "../config";
 
 export default class TaskStore {
     @observable tasks = [];
+    @observable selectTask;
 
     constructor() {
 

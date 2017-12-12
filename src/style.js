@@ -268,5 +268,17 @@ export const modal = StyleSheet.create({
 })
 
 export const itemDetail = StyleSheet.create({
-
+    mainBox: {
+        borderWidth: 1,
+        borderColor: "transparent",
+        margin: 8,
+        padding: 8,
+        borderRadius: 2,
+    },
+    titleBox: {
+        marginBottom: 8,
+    },
+    titleText: {
+        fontSize: 20,
+    },
 })

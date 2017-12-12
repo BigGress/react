@@ -109,6 +109,34 @@ export class Main extends React.Component {
     }
 
     _renderChild() {
+        let datas = [
+            {
+                supplier: {
+                    name: "测试"
+                },
+                number: "CGXXXX",
+                order: "SHXXXXX",
+                quantity: 500,
+                purchaser: {
+                    name: "田林"
+                },
+                remark: "备注",
+                predict_time: Date.now(),
+                arrival_time: Date.now(),
+                arrivalStatus: "已到货",
+                checkStatus: "待质检",
+                checker: {
+                    name: "某某某"
+                },
+                orderChildren: [
+                    {
+                        index:0,
+                        sku: "xxx123",
+                        quantity: 12
+                    }
+                ]
+            }
+        ]
         if (this.checking) {
             return (<PageLoading />)
         } else {
@@ -116,14 +144,31 @@ export class Main extends React.Component {
                         {/* <Button title="click" onPress={this.deleteToken.bind(this)} />
                         <Button title="test" onPress={this.webViewError.bind(this, "点击了")} /> */}
                         {/* <PageLoading /> */}
-                        <ItemBox supplierName={"测试"} number={"CGXXXX"}
+
+                        {
+                            datas.map((e, i) => {
+                                return (<ItemBox supplierName={e.supplier.name}
+                                                 number={e.number}
+                                                 order={e.order}
+                                                 quantity={e.quantity}
+                                                 purchaser={e.purchaser.name}
+                                                 remark={e.remark}
+                                                 arrivalStatus={e.arrivalStatus}
+                                                 checkStatus={e.checkStatus}
+                                                 orderChildren={e.orderChildren}
+                                                 doAction={this.openDetail.bind(this, e)}
+                                                 key={i}/>)
+                            })
+                        }
+
+                        {/* <ItemBox supplierName={"测试"} number={"CGXXXX"}
                                  order={"SHXXXX"} quantity={500}
                                  purchaser={"采购"} remark={"备注！"}
                                  doAction={this.openDetail.bind(this)}/>
                         <ItemBox supplierName={"测试"} number={"CGXXXX"}
                                 order={"SHXXXX"} quantity={500}
                                 purchaser={"采购"} remark={"备注！"}
-                                doAction={this.openDetail.bind(this)}/>
+                                doAction={this.openDetail.bind(this)}/> */}
                         <Modal visible={this.showWebView}
                             style={Style.clearPaddingAndMargin}
                             onRequestClose={this.ModalClose.bind(this)}
@@ -145,6 +190,7 @@ export class Main extends React.Component {
     openDetail(...args) {
         console.log(args)
         this.showDetail = true;
+        appState.task.selectTask = args[0];
     }
 
     closeDetailModal() {
@@ -153,6 +199,8 @@ export class Main extends React.Component {
     }
 
     render() {
+        console.log(this.state)
+
         return (
             <Provider {...appState}>
                 {this._renderChild()}
