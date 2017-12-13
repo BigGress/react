@@ -29,7 +29,7 @@ export default class EwModal extends React.Component {
             <View style={[commonStyle.flexRow, commonStyle.flexBewteen, style.header]}>
                 {
                     !this.props.hasBack
-                    ? (<TouchableHighlight onPress={this.onBack.bind(this)}>
+                    ? (<TouchableHighlight onPress={this.onBack.bind(this)} style={style.headerBtn}>
                             <Text style={style.headerBtnText}>返回</Text>
                         </TouchableHighlight>)
                     : null
@@ -38,7 +38,7 @@ export default class EwModal extends React.Component {
                 <Text style={style.headerTitle}>{this.props.title}</Text>
                 {
                     !this.props.hasConfirm
-                    ? (<TouchableHighlight onPress={this.onConfirm.bind(this)}>
+                    ? (<TouchableHighlight onPress={this.onConfirm.bind(this)} style={style.headerBtn}>
                             <Text style={style.headerBtnText}>完成</Text>
                     </TouchableHighlight>)
                     : null

@@ -14,6 +14,23 @@ import TimePipe from "../pipe/time.pipe";
 
 import appStore from "../store/index";
 
+@observer
+class ItemBoxChild extends React.Component {
+    render() {
+        return (
+            <View style={[commonStyle.flexRow, commonStyle.flexBewteen, style.childBox]}>
+                <View style={[commonStyle.flexRow, style.childIndexBox]}>
+                    <View style={style.childIndexBoxLine}></View>
+                    <View style={style.childIndexBoxBackground}></View>
+                    <Text style={style.childContentText}>{this.props.data.index + 1}</Text>
+                </View>
+                <Text>{this.props.data.sku}</Text>
+                <Text>发货数量: {this.props.data.quantity || 0}</Text>
+            </View>
+        )
+    }
+}
+
 
 @observer
 export default class ItemDetail extends React.Component {
@@ -22,10 +39,9 @@ export default class ItemDetail extends React.Component {
     }
     
     render() {
-        console.log(appStore.task.selectTask)
         let data = appStore.task.selectTask;
 
-        console.log(data);
+        console.log(`test:`, data)
 
         let infos = [
             `${data.order || ""} (到货${data.quantity || 0})`,
@@ -36,6 +52,8 @@ export default class ItemDetail extends React.Component {
             `实际收货: ${TimePipe(data.arrival_time, "yyyy-MM-dd")}`,
             `收货员: ${data.checker ? data.checker.name : ""}`,
         ];
+
+        let datas = data.orderChildren;
 
         return (
             <View>
@@ -48,6 +66,9 @@ export default class ItemDetail extends React.Component {
                               renderItem={({item}) => <Text>{item}</Text>}
                               keyExtractor={(item, index) => index}/>
                 </View>
+                <FlatList data={datas}
+                              renderItem={({item}) => <ItemBoxChild data={item} />}
+                              keyExtractor={(item, index) => index}/>
             </View>
         )
     }

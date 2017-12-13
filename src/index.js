@@ -180,7 +180,8 @@ export class Main extends React.Component {
                         <EwModal visible={this.showDetail}
                                  animationType="slide"
                                  title={"策四"}
-                                 onBack={this.closeDetailModal.bind(this)}>
+                                 onBack={this.closeDetailModal.bind(this)}
+                                 onConfirm={this.closeDetailModal.bind(this)}>
                             <ItemDetail/>
                         </EwModal>
                     </View>);
@@ -188,19 +189,15 @@ export class Main extends React.Component {
     }
 
     openDetail(...args) {
-        console.log(args)
         this.showDetail = true;
         appState.task.selectTask = args[0];
     }
 
     closeDetailModal() {
-        console.log(`haha`)
         this.showDetail = false;
     }
 
     render() {
-        console.log(this.state)
-
         return (
             <Provider {...appState}>
                 {this._renderChild()}

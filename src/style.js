@@ -262,6 +262,9 @@ export const modal = StyleSheet.create({
     headerBtnText: {
         color: defaultColor
     },
+    headerBtn: {
+        padding: 8,
+    },
     content: {
         
     }
@@ -281,4 +284,40 @@ export const itemDetail = StyleSheet.create({
     titleText: {
         fontSize: 20,
     },
+    childBox: {
+        paddingLeft: 16,
+        paddingRight: 16,
+        width: "100%",
+        flex: 1,
+        height: 26,
+        alignItems: "center",
+    },
+    childIndexBox: {
+        position: "relative",
+        alignItems: "center",
+        justifyContent: "center",
+        marginLeft: 8,
+    },
+    childIndexBoxBackground: { 
+        position: "absolute",
+        top: -3,
+        width: 18, 
+        height: 18,
+        backgroundColor: "red",
+        borderRadius: 100,
+    },
+    childIndexBoxLine: {
+        width: 1,
+        height: 26,
+        // backgroundColor: borderColor,
+        backgroundColor: "rgba(180, 180, 180, 1)",
+        position: "absolute",
+        top: -6,
+        left: "50%",
+        marginLeft: -.5,
+    },
+    childContentText: {
+        lineHeight: 11,
+        color: "#fff",
+    }
 })
